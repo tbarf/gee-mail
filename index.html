@@ -1,178 +1,132 @@
 <html>
-  <head>
-    <script src="js/mail-generator.js"></script>
-    <link href="css/style.css" rel="stylesheet" media="screen"  content="width=device-width, initial-scale=1.0" name="viewport">
-<link href="https://fonts.googleapis.com/css?family=Crafty+Girls" rel="stylesheet">
-    <script>
-      window.onload = function(){
+    <head>
+        <script src="js/mail-generator.js">
+        </script>
+        <link content="width=device-width, initial-scale=1.0" href="css/style.css" media="screen" name="viewport" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Crafty+Girls" rel="stylesheet">
+                <script>
+                    window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE.
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
 
 
-
 var main = document.body;
+
 var mainDiv = document.createElement("div");
 main.appendChild(mainDiv);
+var header = document.createElement("header");
+header.id = "header";
+mainDiv.appendChild(header);
 var imgDiv = document.createElement("div");
 imgDiv.id = "imgDiv";
-mainDiv.appendChild(imgDiv);
+imgDiv.className = "rainbow";
+imgDiv.innerHTML = "Gee-Mail: By Clippy";
+header.appendChild(imgDiv);
+var img = document.createElement("img");
+img.src = "https://www.davescomputertips.com/wp-content/uploads/2014/05/clippy-with-text.jpg";
+var src = document.getElementById("imgDiv");
+src.appendChild(img);
+var emailMover = document.getElementsByClassName("newEmailHolderDiv");
+var emailList = document.createElement("div");
+emailList.id = "container";
+mainDiv.appendChild(emailList);
+var emailCount = document.createElement("li");
+emailCount.className = "rainbow";
+var counter = window.geemails.length;
+emailCount.innerHTML = "Inbox " + "(" + counter + ")";
+emailList.appendChild(emailCount);
+var inboxDiv = document.createElement("div");
+inboxDiv.id = "inbox";
+mainDiv.appendChild(inboxDiv);
+var footer =document.createElement("footer");
+footer.id = "footer";
+body.appendChild(footer);
+//
+var emptyBox = document.createElement("div");
+emptyBox.id = "emptyBox";
+mainDiv.appendChild(emptyBox);
+setInterval(addEmail, 9000);
+var br = document.createElement("br");
+inboxDiv.appendChild(br);
 
-    var logo = document.createElement("img");
-    logo.id = "aol";
-    imgDiv.appendChild(logo);
-    document.getElementById("aol").src = "https://lists.apache.org/images/logo_large.png";
-    //
-
-
-
-    var emailMover = document.getElementsByClassName("newEmailHolderDiv");
-
-
-
-    var emailList = document.createElement("div");
-        emailList.id = "container";
-        mainDiv.appendChild(emailList);
-
-  var emailCount = document.createElement("li");
-      emailCount.className = "rainbow";
-
-
-    var counter = window.geemails.length;
-
-      emailCount.innerHTML = "Inbox " + "(" + counter + ")";
-      emailList.appendChild(emailCount);
-
-
-
-
-
-  var inboxDiv = document.createElement("div");
-    inboxDiv.id = "inbox";
-    mainDiv.appendChild(inboxDiv);
-    //
-
-
-    var emptyBox = document.createElement("div");
-    emptyBox.id = "emptyBox";
-    mainDiv.appendChild(emptyBox);
-
-
-    setInterval(addEmail, 9000);
-    var br = document.createElement("br");
-    inboxDiv.appendChild(br);
-
-    function addEmail(){
-      var newData = window.getNewMessage();
-
-      var newEmailHolderDiv = document.createElement("div");
-      newEmailHolderDiv.className = "newEmailHolderDiv";
-      inboxDiv.appendChild(newEmailHolderDiv);
-
-      var newBreak = document.createElement("br");
-      inboxDiv.appendChild(newBreak);
-
-      var newEmailDateDiv = document.createElement("div");
-      newEmailDateDiv.className = "rainbow";
-      newEmailDateDiv.innerHTML = newData.date;
-      newEmailHolderDiv.appendChild(newEmailDateDiv);
-
-      var newSenderDiv = document.createElement("div");
-      newSenderDiv.className = "rainbow";
-      newSenderDiv.innerHTML = newData.sender;
-      newEmailHolderDiv.appendChild(newSenderDiv);
-
-      var newSubjectDiv = document.createElement("div");
-      newSubjectDiv.className = "rainbow";
-      newSubjectDiv.id = "title";
-      newSubjectDiv.innerHTML = newData.subject;
-      newEmailHolderDiv.appendChild(newSubjectDiv);
-
-      var newMessageDiv = document.createElement("div");
-      newMessageDiv.className = "rainbow";
-      newMessageDiv.id = "body";
-      newMessageDiv.innerHTML = newData.body;
-      newEmailHolderDiv.appendChild(newMessageDiv);
-
-      var br2 = document.createElement("br");
-
-
-      for(var y = 0; y < emailMover.length; y++){
-      document.getElementsByClassName("newEmailHolderDiv")[y].addEventListener("click", showEmail);
+function addEmail() {
+    var newData = window.getNewMessage();
+    var newEmailHolderDiv = document.createElement("div");
+    newEmailHolderDiv.className = "newEmailHolderDiv";
+    inboxDiv.appendChild(newEmailHolderDiv);
+    var newBreak = document.createElement("br");
+    inboxDiv.appendChild(newBreak);
+    var newEmailDateDiv = document.createElement("div");
+    newEmailDateDiv.className = "rainbow";
+    newEmailDateDiv.innerHTML = newData.date;
+    newEmailHolderDiv.appendChild(newEmailDateDiv);
+    var newSenderDiv = document.createElement("div");
+    newSenderDiv.className = "rainbow";
+    newSenderDiv.innerHTML = newData.sender;
+    newEmailHolderDiv.appendChild(newSenderDiv);
+    var newSubjectDiv = document.createElement("div");
+    newSubjectDiv.className = "rainbow";
+    newSubjectDiv.id = "title";
+    newSubjectDiv.innerHTML = newData.subject;
+    newEmailHolderDiv.appendChild(newSubjectDiv);
+    var newMessageDiv = document.createElement("div");
+    newMessageDiv.className = "rainbow";
+    newMessageDiv.id = "body";
+    newMessageDiv.innerHTML = newData.body;
+    newEmailHolderDiv.appendChild(newMessageDiv);
+    var br2 = document.createElement("br");
+    for (var y = 0; y < emailMover.length; y++) {
+        document.getElementsByClassName("newEmailHolderDiv")[y].addEventListener("click", showEmail);
     }
-
-
     inboxDiv.insertBefore(newEmailHolderDiv, inboxDiv.childNodes[0]);
     inboxDiv.insertBefore(br2, inboxDiv.childNodes[0]);
+    counter = counter + 1;
+    emailCount.innerHTML = "Inbox " + "(" + counter + ")";
+}
+for (var i = 0; i < window.geemails.length; i++) {
+    var emailDiv = document.createElement("div");
+    emailDiv.className = "newEmailHolderDiv";
+    inboxDiv.appendChild(emailDiv);
+    var br3 = document.createElement("br");
+    inboxDiv.appendChild(br3);
+    var dateDiv = document.createElement("div");
+    dateDiv.className = "rainbow";
+    dateDiv.innerHTML = window.geemails[i].date;
+    emailDiv.appendChild(dateDiv);
+    var senderDiv = document.createElement("div");
+    senderDiv.className = "rainbow";
+    senderDiv.innerHTML = window.geemails[i].sender;
+    emailDiv.appendChild(senderDiv);
+    var subjectDiv = document.createElement("div");
+    subjectDiv.className = "rainbow";
+    subjectDiv.id = "title";
+    subjectDiv.innerHTML = window.geemails[i].subject;
+    emailDiv.appendChild(subjectDiv);
+    var messDiv = document.createElement("div");
+    messDiv.className = "rainbow";
+    messDiv.id = "body";
+    messDiv.innerHTML = window.geemails[i].body;
+    emailDiv.appendChild(messDiv);
+}
+for (var j = 0; j < window.geemails.length; j++) {
+    document.getElementsByClassName("newEmailHolderDiv")[j].addEventListener("click", showEmail);
+}
 
-    //new counter
-      counter = counter + 1;
-      emailCount.innerHTML = "Inbox " + "(" + counter + ")";
-
-  }
-
-
-
-
-    for(var i = 0; i<window.geemails.length; i++){
-
-      var emailDiv = document.createElement("div");
-      emailDiv.className = "newEmailHolderDiv";
-      inboxDiv.appendChild(emailDiv);
-
-
-      var br3 = document.createElement("br");
-      inboxDiv.appendChild(br3);
-
-      var dateDiv = document.createElement("div");
-      dateDiv.className = "rainbow";
-      dateDiv.innerHTML = window.geemails[i].date;
-      emailDiv.appendChild(dateDiv);
-
-      var senderDiv = document.createElement("div");
-      senderDiv.className = "rainbow";
-      senderDiv.innerHTML = window.geemails[i].sender;
-      emailDiv.appendChild(senderDiv);
-
-
-      var subjectDiv = document.createElement("div");
-      subjectDiv.className = "rainbow";
-      subjectDiv.id = "title";
-      subjectDiv.innerHTML = window.geemails[i].subject;
-      emailDiv.appendChild(subjectDiv);
-
-
-      var messDiv = document.createElement("div");
-      messDiv.className = "rainbow";
-      messDiv.id = "body";
-      messDiv.innerHTML = window.geemails[i].body;
-      emailDiv.appendChild(messDiv);
+function showEmail() {
+    var emailMess = this.querySelectorAll("#body")[0];
+    if (emailMess.style.display === "none") {
+        emailMess.style.display = "block";
+    } else {
+        emailMess.style.display = "none";
     }
-
-
-
-
-    for(var j = 0; j < window.geemails.length; j++){
-      document.getElementsByClassName("newEmailHolderDiv")[j].addEventListener("click", showEmail);
-    }
-
-
-
-  function showEmail(){
-        var emailMess = this.querySelectorAll("#body")[0];
-        if(emailMess.style.display === "none"){
-          emailMess.style.display = "block";
-        }else{
-          emailMess.style.display = "none";
-        }
-     }
-
-     };
-
-    </script>
-  </head>
-  <body id="body">
-    <div class="container" id="main">
-
-    </div>
-  </body>
+}
+};
+                </script>
+            </link>
+        </link>
+    </head>
+    <body id="body">
+        <div class="container" id="main">
+        </div>
+    </body>
 </html>
